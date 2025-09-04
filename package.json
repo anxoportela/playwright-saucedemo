@@ -1,0 +1,19 @@
+{
+  "name": "playwright-saucedemo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:3000/ npx playwright test"
+  },
+  "keywords": ["playwright","testing"],
+  "author": "Anxo Portela-Insua Blanco",
+  "license": "MIT",
+  "description": "Demo de un proyecto de Playwright",
+  "devDependencies": {
+    "@playwright/test": "^1.48.2",
+    "@types/node": "^22.9.0"
+  }
+}
