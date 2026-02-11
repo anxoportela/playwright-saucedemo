@@ -199,3 +199,15 @@ jobs:
               repo: context.repo.repo,
               body: '## 🧪 Test Results\n\n❌ **Tests failed!** Please check the Allure report for details.'
             })
+
+      - name: 💬 Post comment on commit
+        if: github.event_name == 'push'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.repos.createCommitComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: context.sha,
+              body: '## 🧪 Test Results\n\n❌ **Tests failed!** Please check the Allure report for details.'
+            })
