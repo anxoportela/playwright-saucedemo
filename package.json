@@ -8,7 +8,7 @@
   "scripts": {
     "test": "npx playwright test",
     "test:container": "PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:3000/ npx playwright test",
-    "test:ci": "npx playwright test --reporter=line",
+    "test:ci": "npx playwright test",
     "test:report": "npx playwright show-report",
     "test:json": "npx playwright test --reporter=json",
     "test:html": "npx playwright test --reporter=html",
