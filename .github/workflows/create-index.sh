@@ -4,9 +4,9 @@ set -e
 # Create pages directory
 mkdir -p pages
 
-# Copy documentation
-cp -r docs/* pages/ 2>/dev/null || true
-cp README.md pages/ 2>/dev/null || true
+# Copy documentation (HTML files from markdown conversion)
+cp -r docs/*.html pages/docs/ 2>/dev/null || true
+cp docs/README.html pages/docs/ 2>/dev/null || true
 
 # Copy Allure report
 mkdir -p pages/allure
