@@ -2,12 +2,12 @@ version: '3.8'
 
 services:
   playwright:
-    image: mcr.microsoft.com/playwright:v1.48.1-noble
+    image: mcr.microsoft.com/playwright:v1.58.2-jammy
     container_name: playwright-container
     ports:
       - "3000:3000"
     working_dir: /home/pwuser/project
-    command: /bin/sh -c "cd /home/pwuser/project && npx -y playwright@1.48.1 run-server --port 3000 --host 0.0.0.0"
+    command: /bin/sh -c "cd /home/pwuser/project && npx -y playwright@1.58.2 run-server --port 3000 --host 0.0.0.0"
     networks:
       - playwright-network
 

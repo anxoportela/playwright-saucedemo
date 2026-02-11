@@ -6,14 +6,34 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:3000/ npx playwright test"
+    "test": "npx playwright test",
+    "test:container": "PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:3000/ npx playwright test",
+    "test:ci": "npx playwright test --reporter=line",
+    "test:report": "npx playwright show-report",
+    "test:json": "npx playwright test --reporter=json",
+    "test:html": "npx playwright test --reporter=html",
+    "test:allure": "npx playwright test --reporter=list && npx allure generate allure-results --clean -o allure-report && npx allure open",
+    "allure:generate": "npx allure generate allure-results --clean -o allure-report",
+    "allure:open": "npx allure open allure-report",
+    "allure:clear": "rm -rf allure-results allure-report",
+    "install:browsers": "npx playwright install --with-deps",
+    "install:chromium": "npx playwright install chromium",
+    "clean": "rm -rf test-results playwright-report",
+    "clean:all": "rm -rf test-results playwright-report node_modules"
   },
-  "keywords": ["playwright","testing"],
+  "keywords": [
+    "playwright",
+    "testing",
+    "e2e",
+    "saucedemo"
+  ],
   "author": "Anxo Portela-Insua Blanco",
   "license": "MIT",
-  "description": "Demo de un proyecto de Playwright",
+  "description": "End-to-end testing project using Playwright for the Saucedemo demo e-commerce website",
   "devDependencies": {
-    "@playwright/test": "^1.48.2",
-    "@types/node": "^22.9.0"
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^22.9.0",
+    "allure-commandline": "^2.36.0",
+    "allure-playwright": "^3.4.5"
   }
 }
