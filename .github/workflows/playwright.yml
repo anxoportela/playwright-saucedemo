@@ -172,21 +172,18 @@ jobs:
       - name: ⚙️ Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: 📦 Install markdown converter
-        run: npm install -g marked
-
       - name: 📝 Convert markdown to HTML
         run: |
-          # Convert docs/*.md to docs/*.html
+          # Convert docs/*.md to docs/*.html using npx
           for file in docs/*.md; do
             if [ -f "$file" ]; then
               filename=$(basename "$file" .md)
-              marked -o "docs/${filename}.html" "$file"
+              npx marked -o "docs/${filename}.html" "$file"
             fi
           done
           # Convert README.md to docs/README.html
           if [ -f "README.md" ]; then
-            marked -o "docs/README.html" "README.md"
+            npx marked -o "docs/README.html" "README.md"
           fi
 
       - name: 📄 Create index.html
