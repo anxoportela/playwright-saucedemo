@@ -8,6 +8,9 @@ mkdir -p pages
 cp -r docs/*.html pages/docs/ 2>/dev/null || true
 cp docs/README.html pages/docs/ 2>/dev/null || true
 
+# Install marked locally for conversion (if not already done)
+npm install --no-save marked 2>/dev/null || true
+
 # Copy Allure report
 mkdir -p pages/allure
 cp -r allure-report/* pages/allure/ 2>/dev/null || true
