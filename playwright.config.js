@@ -23,6 +23,7 @@ module.exports = defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ["list"],
+    ["json", { outputFile: "test-results/results.json" }],
     ["html", { open: "never", outputFolder: "playwright-report" }],
     ["allure-playwright", { outputFolder: "allure-results" }]
   ],
