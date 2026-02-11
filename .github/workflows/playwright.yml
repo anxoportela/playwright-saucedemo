@@ -102,6 +102,12 @@ jobs:
             echo "failed_count=0" >> $GITHUB_ENV
           fi
 
+      - name: 📚 Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: docs/
+
       - name: 📝 Print test summary
         if: always()
         run: |
@@ -157,6 +163,12 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
+
+      - name: 📥 Download documentation
+        uses: actions/download-artifact@v4
+        with:
+          name: docs
+          path: docs/
 
       - name: 📅 Create history directory
         run: |
