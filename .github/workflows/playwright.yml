@@ -102,11 +102,76 @@ jobs:
             echo "failed_count=0" >> $GITHUB_ENV
           fi
 
+      - name: 📝 Convert markdown to HTML
+        if: always()
+        run: |
+          # Install marked for markdown conversion
+          npm install --no-save marked
+
+          # Convert docs/*.md to docs/*.html
+          for file in docs/*.md; do
+            if [ -f "$file" ]; then
+              filename=$(basename "$file" .md)
+              npx marked -o "docs/${filename}.html" "$file"
+            fi
+          done
+          # Convert README.md to docs/README.html
+          if [ -f "README.md" ]; then
+            npx marked -o "docs/README.html" "README.md"
+          fi
+
       - name: 📚 Upload documentation
         uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: docs
           path: docs/
+
+      - name: 📄 Create navigation index.html
+        if: always()
+        run: |
+          mkdir -p pages
+          cat > pages/index.html << 'HTMLEOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Playwright Saucedemo - Test Reports</title>
+            <style>
+              body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+              .container { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+              h1 { color: #333; border-bottom: 3px solid #667eea; padding-bottom: 15px; }
+              a { color: #667eea; text-decoration: none; font-weight: 600; }
+              a:hover { text-decoration: underline; }
+              li { padding: 12px 0; border-bottom: 1px solid #eee; }
+              .card { background: #f8f9fa; border-radius: 12px; padding: 25px; margin: 20px 0; }
+            </style>
+          </head>
+          <body>
+            <div class="container">
+              <h1>🧪 Test Reports Navigation</h1>
+              <div class="card">
+                <h2>📚 Documentation</h2>
+                <ul>
+                  <li><a href="docs/README.html">README</a></li>
+                  <li><a href="docs/ARCHITECTURE.html">Architecture</a></li>
+                  <li><a href="docs/TEST_CASES.html">Test Cases</a></li>
+                  <li><a href="docs/BEST_PRACTICES.html">Best Practices</a></li>
+                  <li><a href="docs/CONFIGURATION.html">Configuration</a></li>
+                </ul>
+              </div>
+            </div>
+          </body>
+          </html>
+          HTMLEOF
+
+      - name: 📦 Upload pages artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pages
+          path: pages/
 
       - name: 📝 Print test summary
         if: always()
@@ -152,23 +217,11 @@ jobs:
           name: allure-report
           path: allure-report/
 
-      - name: 📥 Download test results
+      - name: 📥 Download pages artifact
         uses: actions/download-artifact@v7
         with:
-          name: test-results
-          path: test-results/
-
-      - name: 📥 Download Playwright report
-        uses: actions/download-artifact@v7
-        with:
-          name: playwright-report
-          path: playwright-report/
-
-      - name: 📥 Download documentation
-        uses: actions/download-artifact@v4
-        with:
-          name: docs
-          path: docs/
+          name: pages
+          path: pages/
 
       - name: 📅 Create history directory
         run: |
@@ -193,66 +246,16 @@ jobs:
             git push origin history --force
           fi
 
-      - name: 📝 Prepare pages content
-        run: |
-          # Create a temp directory for pages
-          mkdir -p temp-pages
-          
-          # Copy docs to temp
-          cp -r docs/ temp-pages/
-          
-          # Create index.html for navigation
-          cat > temp-pages/index.html << 'HTMLEOF'
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Playwright Saucedemo - Test Reports</title>
-            <style>
-              body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
-              .container { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-              h1 { color: #333; border-bottom: 3px solid #667eea; padding-bottom: 15px; }
-              a { color: #667eea; text-decoration: none; font-weight: 600; }
-              a:hover { text-decoration: underline; }
-              li { padding: 12px 0; border-bottom: 1px solid #eee; }
-              .card { background: #f8f9fa; border-radius: 12px; padding: 25px; margin: 20px 0; }
-            </style>
-          </head>
-          <body>
-            <div class="container">
-              <h1>🧪 Test Reports Navigation</h1>
-              <div class="card">
-                <h2>📊 Allure Reports</h2>
-                <ul>
-                  <li><a href="history/latest/index.html">Latest Report</a></li>
-                  <li><a href="history/">History Archive</a></li>
-                </ul>
-              </div>
-              <div class="card">
-                <h2>📚 Documentation</h2>
-                <ul>
-                  <li><a href="docs/README.html">README</a></li>
-                  <li><a href="docs/ARCHITECTURE.html">Architecture</a></li>
-                  <li><a href="docs/TEST_CASES.html">Test Cases</a></li>
-                  <li><a href="docs/BEST_PRACTICES.html">Best Practices</a></li>
-                  <li><a href="docs/CONFIGURATION.html">Configuration</a></li>
-                </ul>
-              </div>
-            </div>
-          </body>
-          </html>
-          HTMLEOF
-
       - name: ⚙️ Setup Pages
         uses: actions/configure-pages@v5
 
       - name: 📤 Upload pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: temp-pages/
+          path: pages/
 
       - name: 🚀 Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
 
   notify:
