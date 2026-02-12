@@ -120,17 +120,23 @@ jobs:
             npx marked -o "docs/README.html" "README.md"
           fi
 
-      - name: 📚 Upload documentation
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: docs
-          path: docs/
-
-      - name: 📄 Create navigation index.html
+      - name: 📄 Create pages with Allure and docs
         if: always()
         run: |
-          mkdir -p pages
+          # Create pages directory structure
+          mkdir -p pages/allure
+          mkdir -p pages/docs
+          
+          # Copy Allure report to pages/allure
+          cp -r allure-report/* pages/allure/
+          
+          # Copy docs HTML files to pages/docs
+          cp -r docs/*.html pages/docs/
+          if [ -f "docs/README.html" ]; then
+            cp docs/README.html pages/docs/
+          fi
+          
+          # Create navigation index.html
           cat > pages/index.html << 'HTMLEOF'
           <!DOCTYPE html>
           <html lang="en">
@@ -151,6 +157,14 @@ jobs:
           <body>
             <div class="container">
               <h1>🧪 Test Reports Navigation</h1>
+              
+              <div class="card">
+                <h2>📊 Allure Report</h2>
+                <ul>
+                  <li><span class="emoji">📈</span> <a href="allure/index.html">View Allure Report</a> - Interactive test report with screenshots</li>
+                </ul>
+              </div>
+
               <div class="card">
                 <h2>📚 Documentation</h2>
                 <ul>
@@ -165,6 +179,10 @@ jobs:
           </body>
           </html>
           HTMLEOF
+          echo "✅ Pages created successfully"
+          ls -la pages/
+          ls -la pages/allure/ 2>/dev/null || echo "No allure folder"
+          ls -la pages/docs/ 2>/dev/null || echo "No docs folder"
 
       - name: 📦 Upload pages artifact
         uses: actions/upload-artifact@v4
