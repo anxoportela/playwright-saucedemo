@@ -5,3 +5,10 @@ node_modules/
 /playwright/.cache/
 /allure-results/
 /allure-report/
+
+# Docusaurus
+/.docusaurus/
+/build/
+/versioned_docs/
+/versioned_sidebars/
+/src/assets/
