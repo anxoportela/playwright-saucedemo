@@ -1,4 +1,11 @@
-# Project Architecture
+---
+id: architecture
+title: Architecture
+sidebar_label: Architecture
+description: Project architecture and design patterns
+---
+
+# 🏗️ Project Architecture
 
 This document describes the architecture and design patterns used in this Playwright testing project.
 
@@ -119,8 +126,8 @@ Custom fixtures provide reusable setup and teardown logic.
 │
 ├── docs/                          # Documentation
 │   ├── ARCHITECTURE.md            # This file
-│   ├── TEST_CASES.md              # Test case documentation
-│   ├── BEST_PRACTICES.md          # Testing guidelines
+│   ├── TEST_CASES.md              # Test case documentation BEST_PRACTICES
+│   ├──.md          # Testing guidelines
 │   └── CONFIGURATION.md           # Configuration guide
 │
 ├── playwright.config.js           # Playwright configuration
@@ -187,9 +194,3 @@ Tests should be stable and not produce flaky results.
 1. Update `playwright.config.js`
 2. Add new project configuration
 3. Test on new browser
-
-## 🔗 Related Documentation
-
-- [Test Cases](TEST_CASES.md)
-- [Best Practices](BEST_PRACTICES.md)
-- [Configuration](CONFIGURATION.md)

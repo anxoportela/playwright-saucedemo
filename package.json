@@ -19,7 +19,10 @@
     "install:browsers": "npx playwright install --with-deps",
     "install:chromium": "npx playwright install chromium",
     "clean": "rm -rf test-results playwright-report",
-    "clean:all": "rm -rf test-results playwright-report node_modules"
+    "clean:all": "rm -rf test-results playwright-report node_modules",
+    "docs:build": "docusaurus build",
+    "docs:start": "docusaurus start",
+    "docs:swizzle": "docusaurus swizzle"
   },
   "keywords": [
     "playwright",
@@ -31,9 +34,16 @@
   "license": "MIT",
   "description": "End-to-end testing project using Playwright for the Saucedemo demo e-commerce website",
   "devDependencies": {
-    "@playwright/test": "^1.58.2",
+    "@docusaurus/core": "^3.6.3",
+    "@docusaurus/preset-classic": "^3.6.3",
+    "@mdx-js/react": "^3.1.0",
+    "@playwright/test": "^1.48.2",
     "@types/node": "^25.2.3",
     "allure-commandline": "^2.36.0",
-    "allure-playwright": "^3.4.5"
+    "allure-playwright": "^3.4.5",
+    "clsx": "^2.1.1",
+    "prism-react-renderer": "^2.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }

@@ -1,0 +1,14 @@
+.features {
+  padding: 4rem 0;
+  background: #f8f9fa;
+}
+
+.feature {
+  text-align: center;
+  padding: 1rem;
+}
+
+.feature h3 {
+  color: #667eea;
+  margin-bottom: 1rem;
+}

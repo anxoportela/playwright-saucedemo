@@ -1,4 +1,11 @@
-# Best Practices Guide
+---
+id: best-practices
+title: Best Practices
+sidebar_label: Best Practices
+description: Testing best practices and guidelines
+---
+
+# 📖 Best Practices Guide
 
 This document outlines the best practices for writing and maintaining tests in this Playwright project.
 
@@ -126,21 +133,6 @@ await page.waitForTimeout(5000); // ❌ Avoid this
 - Translate all comments to English
 - Keep comments up-to-date with code changes
 
-**✅ Good:**
-```javascript
-// Navigate to login page - start fresh for each test
-async navigate() {
-  await this.page.goto(this.constructor.URL);
-  await this.page.waitForLoadState('domcontentloaded');
-}
-```
-
-### Indentation and Formatting
-
-- Use 2 spaces for indentation
-- Use semicolons in JavaScript
-- Use template literals for string interpolation
-
 ## 🔧 Locator Best Practices
 
 ### 1. Prefer `data-test` Attributes
@@ -221,13 +213,6 @@ test('Login with valid credentials', async ({ page }) => {
 });
 ```
 
-**❌ Bad:**
-```javascript
-test('Login once, test multiple things', async ({ page }) => {
-  // Tests should be independent, not share state
-});
-```
-
 ## 🚨 Error Handling
 
 ### 1. Add Test Annotations
@@ -249,20 +234,6 @@ test('Error handling', async ({ page }) => {
   // Test that errors are properly handled
   const errorMessage = page.locator('.error');
   await expect(errorMessage).toBeVisible();
-});
-```
-
-### 3. Use Soft Assertions
-
-```javascript
-import { softAssertions } from '@playwright/test';
-
-test('Multiple checks', async ({ page }) => {
-  await softAssertions.assertionSoft(
-    () => expect(page).toHaveTitle('Expected Title'),
-    () => expect(locator).toBeVisible(),
-    () => expect(text).toContain('Expected Text')
-  );
 });
 ```
 
@@ -292,51 +263,8 @@ module.exports = { createUser };
 test-data/
 ├── credentials.js      # User credentials
 ├── products.js         # Product data
-├── users.js            # User profiles
-└── testDataFactory.js # Data factory functions
+└── userFactory.js     # Data factory functions
 ```
-
-## 🔄 Test Maintenance
-
-### 1. Review Tests Regularly
-
-- Keep tests up-to-date with application changes
-- Remove obsolete tests
-- Refactor flaky tests
-
-### 2. Monitor Test Results
-
-- Track test flakiness
-- Analyze failures
-- Update tests proactively
-
-### 3. Document Changes
-
-- Update documentation when adding tests
-- Keep test case docs current
-- Document known issues
-
-## 📈 Performance Tips
-
-### 1. Run Tests in Parallel
-
-```javascript
-// playwright.config.js
-fullyParallel: true,
-```
-
-### 2. Use Retries Wisely
-
-```javascript
-// playwright.config.js
-retries: process.env.CI ? 2 : 0,
-```
-
-### 3. Optimize Selectors
-
-- Use fast locators
-- Avoid complex DOM traversal
-- Cache frequently used elements
 
 ## 🔒 Security Best Practices
 
@@ -353,14 +281,3 @@ const { username, password } = process.env;
 
 ### 2. Use .env Files
 
-```bash
-# .env (add to .gitignore)
-SAUCEDEMO_USERNAME=standard_user
-SAUCEDEMO_PASSWORD=secret_sauce
-```
-
-## 📚 Related Documentation
-
-- [Architecture](ARCHITECTURE.md)
-- [Test Cases](TEST_CASES.md)
-- [Configuration](CONFIGURATION.md)

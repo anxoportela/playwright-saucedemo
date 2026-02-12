@@ -102,23 +102,10 @@ jobs:
             echo "failed_count=0" >> $GITHUB_ENV
           fi
 
-      - name: 📝 Convert markdown to HTML
+      - name: 🏗️ Build Docusaurus documentation
         if: always()
         run: |
-          # Install marked for markdown conversion
-          npm install --no-save marked
-
-          # Convert docs/*.md to docs/*.html
-          for file in docs/*.md; do
-            if [ -f "$file" ]; then
-              filename=$(basename "$file" .md)
-              npx marked -o "docs/${filename}.html" "$file"
-            fi
-          done
-          # Convert README.md to docs/README.html
-          if [ -f "README.md" ]; then
-            npx marked -o "docs/README.html" "README.md"
-          fi
+          npm run docs:build
 
       - name: 📄 Create pages with Allure and docs
         if: always()
@@ -130,11 +117,8 @@ jobs:
           # Copy Allure report to pages/allure
           cp -r allure-report/* pages/allure/
           
-          # Copy docs HTML files to pages/docs
-          cp -r docs/*.html pages/docs/
-          if [ -f "docs/README.html" ]; then
-            cp docs/README.html pages/docs/
-          fi
+          # Copy Docusaurus build to pages/docs
+          cp -r build/* pages/docs/
           
           # Create navigation index.html
           cat > pages/index.html << 'HTMLEOF'
@@ -152,6 +136,8 @@ jobs:
               a:hover { text-decoration: underline; }
               li { padding: 12px 0; border-bottom: 1px solid #eee; }
               .card { background: #f8f9fa; border-radius: 12px; padding: 25px; margin: 20px 0; }
+              .btn { display: inline-block; padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px; text-decoration: none; margin: 8px; font-weight: 600; }
+              .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
             </style>
           </head>
           <body>
@@ -161,28 +147,35 @@ jobs:
               <div class="card">
                 <h2>📊 Allure Report</h2>
                 <ul>
-                  <li><span class="emoji">📈</span> <a href="allure/index.html">View Allure Report</a> - Interactive test report with screenshots</li>
+                  <li><a class="btn" href="allure/index.html">📈 View Allure Report</a></li>
+                </ul>
+                <p>Interactive test report with screenshots, trends, and detailed failure analysis.</p>
+              </div>
+
+              <div class="card">
+                <h2>📚 Docusaurus Documentation</h2>
+                <p>Beautiful, searchable documentation with sidebar navigation.</p>
+                <ul>
+                  <li><a class="btn" href="docs/index.html">📖 Documentation Home</a></li>
+                  <li><a href="docs/intro.html">Introduction</a></li>
+                  <li><a href="docs/architecture.html">Architecture</a></li>
+                  <li><a href="docs/test-cases.html">Test Cases</a></li>
+                  <li><a href="docs/best-practices.html">Best Practices</a></li>
+                  <li><a href="docs/configuration.html">Configuration</a></li>
                 </ul>
               </div>
 
               <div class="card">
-                <h2>📚 Documentation</h2>
-                <ul>
-                  <li><a href="docs/README.html">README</a></li>
-                  <li><a href="docs/ARCHITECTURE.html">Architecture</a></li>
-                  <li><a href="docs/TEST_CASES.html">Test Cases</a></li>
-                  <li><a href="docs/BEST_PRACTICES.html">Best Practices</a></li>
-                  <li><a href="docs/CONFIGURATION.html">Configuration</a></li>
-                </ul>
+                <h2>📈 Test Metrics</h2>
+                <p><strong>✅ Passed:</strong> ${{ env.passed_count }}</p>
+                <p><strong>❌ Failed:</strong> ${{ env.failed_count }}</p>
+                ${{ env.failed_count == 0 && '<p style="color: #28a745;">🎉 All tests passed!</p>' || '<p style="color: #dc3545;">⚠️ Some tests failed. Check the Allure report for details.</p>' }}
               </div>
             </div>
           </body>
           </html>
           HTMLEOF
           echo "✅ Pages created successfully"
-          ls -la pages/
-          ls -la pages/allure/ 2>/dev/null || echo "No allure folder"
-          ls -la pages/docs/ 2>/dev/null || echo "No docs folder"
 
       - name: 📦 Upload pages artifact
         uses: actions/upload-artifact@v4

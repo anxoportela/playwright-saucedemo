@@ -1,0 +1,164 @@
+/**
+ * Custom CSS for Docusaurus documentation
+ */
+
+/* Category headers */
+.category-header {
+  border-bottom: 2px solid var(--ifm-color-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Enhanced cards for feature boxes */
+.feature-box {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 16px 0;
+  border-left: 4px solid #667eea;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feature-box h3 {
+  color: #667eea;
+  margin-top: 0;
+}
+
+/* Code blocks styling */
+.prism-code {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Table styling */
+.markdown table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.markdown table th {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.markdown table td {
+  padding: 12px 16px;
+}
+
+/* Alert styling */
+.alert {
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.alert--info {
+  background: #e7f3ff;
+  border-left: 4px solid #667eea;
+}
+
+.alert--success {
+  background: #e6ffed;
+  border-left: 4px solid #28a745;
+}
+
+.alert--warning {
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+}
+
+.alert--danger {
+  background: #ffeef0;
+  border-left: 4px solid #dc3545;
+}
+
+/* Navbar enhancements */
+.navbar {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer styling */
+.footer {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Menu styling */
+.menu__link {
+  border-radius: 6px;
+  margin: 2px 0;
+}
+
+.menu__link--active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* Paginator */
+.pagination-nav {
+  margin-top: 2rem;
+}
+
+/* Doc item container */
+.docItemContainer {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Badges */
+.badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.badge--primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.badge--secondary {
+  background: #6c757d;
+}
+
+.badge--success {
+  background: #28a745;
+}
+
+.badge--danger {
+  background: #dc3545;
+}
+
+/* Emoji in headers */
+h1 .emoji,
+h2 .emoji,
+h3 .emoji {
+  margin-right: 8px;
+}
+
+/* Announcement bar styling */
+div[role="banner"] {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .feature-box {
+    padding: 16px;
+  }
+  
+  .markdown table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background: #667eea;
+  color: white;
+}
