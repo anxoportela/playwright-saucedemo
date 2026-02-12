@@ -1,10 +1,28 @@
 {
   "name": "playwright-saucedemo",
   "version": "1.0.0",
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
+  "description": "End-to-end testing project using Playwright for the Saucedemo demo e-commerce website",
+  "author": "Anxo Portela-Insua Blanco",
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  ],
+  "homepage": "https://github.com/anxoportela/playwright-saucedemo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anxoportela/playwright-saucedemo.git"
   },
+  "keywords": [
+    "playwright",
+    "testing",
+    "e2e",
+    "saucedemo",
+    "automation",
+    "end-to-end"
+  ],
   "scripts": {
     "test": "npx playwright test",
     "test:container": "PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:3000/ npx playwright test",
@@ -13,26 +31,24 @@
     "test:json": "npx playwright test --reporter=json",
     "test:html": "npx playwright test --reporter=html",
     "test:allure": "npx playwright test --reporter=list && npx allure generate allure-results --clean -o allure-report && npx allure open",
-    "allure:generate": "npx allure generate allure-results --clean -o allure-report",
-    "allure:open": "npx allure open allure-report",
-    "allure:clear": "rm -rf allure-results allure-report",
+    "test:smoke": "npx playwright test --grep=\"@smoke\" --reporter=list",
+    "test:smoke:chromium": "npx playwright test --grep=\"@smoke\" --project=chromium --reporter=list",
     "install:browsers": "npx playwright install --with-deps",
     "install:chromium": "npx playwright install chromium",
-    "clean": "rm -rf test-results playwright-report",
+    "install:firefox": "npx playwright install firefox",
+    "install:webkit": "npx playwright install webkit",
+    "clean": "rm -rf test-results playwright-report allure-results allure-report",
     "clean:all": "rm -rf test-results playwright-report node_modules",
     "docs:build": "docusaurus build",
     "docs:start": "docusaurus start",
-    "docs:swizzle": "docusaurus swizzle"
+    "docs:swizzle": "docusaurus swizzle",
+    "allure:generate": "npx allure generate allure-results --clean -o allure-report",
+    "allure:open": "npx allure open allure-report",
+    "allure:serve": "npx allure serve allure-results",
+    "allure:clear": "rm -rf allure-results allure-report",
+    "lint": "npx eslint e2e/ pages/ fixtures/ test-data/",
+    "lint:fix": "npx eslint e2e/ pages/ fixtures/ test-data/ --fix"
   },
-  "keywords": [
-    "playwright",
-    "testing",
-    "e2e",
-    "saucedemo"
-  ],
-  "author": "Anxo Portela-Insua Blanco",
-  "license": "MIT",
-  "description": "End-to-end testing project using Playwright for the Saucedemo demo e-commerce website",
   "devDependencies": {
     "@docusaurus/core": "^3.6.3",
     "@docusaurus/preset-classic": "^3.6.3",
@@ -45,5 +61,8 @@
     "prism-react-renderer": "^2.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
