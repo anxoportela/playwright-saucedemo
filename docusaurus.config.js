@@ -8,7 +8,7 @@ const config = {
   title: 'Playwright Saucedemo',
   tagline: 'E2E Testing Project Documentation',
   url: 'https://anxoportela.github.io',
-  baseUrl: '/playwright-saucedemo/docs/index.html/',
+  baseUrl: '/playwright-saucedemo/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   i18n: {
