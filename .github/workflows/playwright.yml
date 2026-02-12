@@ -112,15 +112,14 @@ jobs:
         run: |
           # Create pages directory structure
           mkdir -p pages/allure
-          mkdir -p pages/docs
           
           # Copy Allure report to pages/allure
           cp -r allure-report/* pages/allure/
           
-          # Copy Docusaurus build to pages/docs
-          cp -r build/* pages/docs/
+          # Copy Docusaurus build to pages/ (directly, not in docs/ subfolder)
+          cp -r build/* pages/
           
-          # Create navigation index.html
+          # Create navigation index.html (replacing Docusaurus home page)
           cat > pages/index.html << 'HTMLEOF'
           <!DOCTYPE html>
           <html lang="en">
@@ -152,7 +151,7 @@ jobs:
 
               <div class="card">
                 <h2>📚 Docusaurus Documentation</h2>
-                <p><a class="btn" href="docs/index.html">📖 Documentation Home</a></p>
+                <p><a class="btn" href="docs/intro.html">📖 Documentation Home</a></p>
                 <p>Beautiful, searchable documentation with sidebar navigation.</p>
               </div>
 
