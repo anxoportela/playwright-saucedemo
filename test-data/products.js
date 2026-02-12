@@ -1,3 +1,13 @@
+/**
+ * @fileoverview Test product data for Saucedemo E2E testing
+ * @module test-data/products
+ */
+
+/**
+ * Product and checkout test data configuration
+ * Contains product catalog and checkout test scenarios
+ * @constant
+ */
 module.exports = {
   products: [
     {

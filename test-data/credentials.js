@@ -1,3 +1,13 @@
+/**
+ * @fileoverview Test credentials for Saucedemo E2E testing
+ * @module test-data/credentials
+ */
+
+/**
+ * Test user credentials configuration
+ * Used across login, inventory, cart, and checkout tests
+ * @constant
+ */
 module.exports = {
   validUser: {
     username: 'standard_user',
