@@ -146,23 +146,14 @@ jobs:
               
               <div class="card">
                 <h2>📊 Allure Report</h2>
-                <ul>
-                  <li><a class="btn" href="allure/index.html">📈 View Allure Report</a></li>
-                </ul>
+                <p><a class="btn" href="allure/index.html">📈 View Allure Report</a></p>
                 <p>Interactive test report with screenshots, trends, and detailed failure analysis.</p>
               </div>
 
               <div class="card">
                 <h2>📚 Docusaurus Documentation</h2>
+                <p><a class="btn" href="docs/index.html">📖 Documentation Home</a></p>
                 <p>Beautiful, searchable documentation with sidebar navigation.</p>
-                <ul>
-                  <li><a class="btn" href="docs/index.html">📖 Documentation Home</a></li>
-                  <li><a href="docs/intro.html">Introduction</a></li>
-                  <li><a href="docs/architecture.html">Architecture</a></li>
-                  <li><a href="docs/test-cases.html">Test Cases</a></li>
-                  <li><a href="docs/best-practices.html">Best Practices</a></li>
-                  <li><a href="docs/configuration.html">Configuration</a></li>
-                </ul>
               </div>
 
               <div class="card">
