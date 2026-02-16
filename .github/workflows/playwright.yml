@@ -272,7 +272,7 @@ jobs:
 
       - name: 💬 Post comment on PR
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             github.rest.issues.createComment({
@@ -284,7 +284,7 @@ jobs:
 
       - name: 💬 Post comment on commit
         if: github.event_name == 'push'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             github.rest.repos.createCommitComment({
